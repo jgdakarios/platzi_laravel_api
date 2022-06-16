@@ -3,16 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+use App\Http\Controllers\Api\V1\PostController as PostV1;
+use App\Http\Controllers\Api\V2\PostController as PostV2;
 
-Route::apiResource('v1/posts', App\Http\Controllers\Api\V1\PostController::Class)
+Route::apiResource('v1/posts', PostV1::Class)
     ->only(['index', 'show', 'destroy']);
+
+Route::apiResource('v2/posts', PostV2::Class)
+    ->only(['index', 'show']);
