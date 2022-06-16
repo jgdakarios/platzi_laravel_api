@@ -12,7 +12,18 @@ class LoginController extends Controller
 {
     public function login( Request $request )
     {
+        $this->validateLogin( $request );
 
+        if( Auth::attempt( $request->only( 'email', 'password' ))){
+            return response()->json([
+                'token'     => $request->user()->createToken( $request->name )->plainTextToken
+                ,'message'  => 'Success'
+            ]);
+        }
+
+        return response()->json([
+            'message'   => 'Unauthorized'
+        ], 401 );
     }
 
     public function validateLogin( Request $request )
